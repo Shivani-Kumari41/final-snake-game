@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html>
-<body style="text-align:center; background:#222; color:white;">
+<body style="text-align:center; background:#222; color:white; font-family: sans-serif;">
     <h2>Snake Game</h2>
+    <div id="message" style="height:30px; font-weight:bold; color:yellow;"></div>
     <canvas id="game" width="400" height="400" style="background:black; border:5px solid white; display:block; margin:auto;"></canvas>
     
-    <div id="controls" style="margin-top:10px;">
-        <button onclick="changeDir(0,-1)">UP</button><br>
-        <button onclick="changeDir(-1,0)">LEFT</button>
-        <button onclick="changeDir(1,0)">RIGHT</button><br>
-        <button onclick="changeDir(0,1)">DOWN</button>
+    <div id="controls" style="margin-top:20px;">
+        <button onclick="changeDir(0,-1)" style="padding:20px 40px; font-size:20px;">UP</button><br>
+        <button onclick="changeDir(-1,0)" style="padding:20px 40px; font-size:20px; margin:10px;">LEFT</button>
+        <button onclick="changeDir(1,0)" style="padding:20px 40px; font-size:20px; margin:10px;">RIGHT</button><br>
+        <button onclick="changeDir(0,1)" style="padding:20px 40px; font-size:20px;">DOWN</button>
     </div>
 
     <script>
         const canvas = document.getElementById("game");
         const ctx = canvas.getContext("2d");
+        const msg = document.getElementById("message");
         let snake = [{x: 10, y: 10}];
         let food = {x: 15, y: 15};
         let dx = 1, dy = 0;
@@ -23,17 +25,17 @@
         function update() {
             let head = {x: snake[0].x + dx, y: snake[0].y + dy};
 
-            // Game Over Border Check
             if (head.x < 0 || head.x >= 20 || head.y < 0 || head.y >= 20) {
-                alert("Game Over! Restarting...");
-                snake = [{x: 10, y: 10}];
-                dx = 1; dy = 0;
+                alert("Game Over!");
+                snake = [{x: 10, y: 10}]; dx = 1; dy = 0;
                 return;
             }
 
             snake.unshift(head);
             if (head.x === food.x && head.y === food.y) {
                 food = {x: Math.floor(Math.random()*20), y: Math.floor(Math.random()*20)};
+                msg.innerText = "Good!";
+                setTimeout(() => msg.innerText = "", 1000);
             } else { snake.pop(); }
             
             ctx.fillStyle = "black"; ctx.fillRect(0, 0, 400, 400);
