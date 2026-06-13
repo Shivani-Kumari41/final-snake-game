@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <canvas id="game" width="400" height="400" style="background:black;"></canvas>
+    <script>
+        const ctx = document.getElementById("game").getContext("2d");
+        let snake = [{x: 10, y: 10}];
+        function draw() {
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, 400, 400);
+            ctx.fillStyle = "lime";
+            snake.forEach(s => ctx.fillRect(s.x*20, s.y*20, 18, 18));
+        }
+        setInterval(draw, 100);
+    </script>
+</body>
+</html>
